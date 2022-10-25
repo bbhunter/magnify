@@ -47,9 +47,9 @@ def curlUrl(url):
   return result
 
 def multipleCurl(urls,rate):
-  for url in urls:
+  for index, url in enumerate(urls):
     result = curlUrl(url)
-    print(result)
+    print("({}%) {}".format(int(((index+1)/len(urls))*100), result))
     outputResult.append(result)
     if(rate != -1):
         time.sleep(rate)
