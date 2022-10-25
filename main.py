@@ -4,7 +4,6 @@ import getopt
 import requests
 
 argumentList = sys.argv[1:]
-rate = -1
 outputResult = []
 
 def loadFile(file):
@@ -47,7 +46,7 @@ def curlUrl(url):
       result.append(word)
   return result
 
-def multipleCurl(urls):
+def multipleCurl(urls,rate):
   for url in urls:
     result = curlUrl(url)
     print(result)
@@ -57,8 +56,13 @@ def multipleCurl(urls):
     
 try:
   opts, args = getopt.getopt(argumentList,"f:h:r:u:o:",["file=", "rate=", "url=","output="])
-
-  for opt, arg in reversed(opts):
+  rate = -1
+  try:
+    rate = int([item for item in opts if ("--rate" or "-r") in item][0][1])
+  except:
+    rate = -1
+  
+  for opt, arg in opts:
     if opt == '-h':
       helpMenu()
       sys.exit()
@@ -66,14 +70,10 @@ try:
       print(curlUrl(arg))
     elif opt in ("-f","--file"):
       urls = loadFile(arg)
-      multipleCurl(urls)
+      multipleCurl(urls,rate)
     elif opt in ("-o", "--output"):
       writeFile(arg)
-    elif opt in ("-r", "--rate"):
-      rate = int(arg)
 
 except getopt.GetoptError:
   helpMenu()
   sys.exit(2)
-
-
