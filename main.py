@@ -28,7 +28,7 @@ def writeFile(file):
     
 def helpMenu():
   print("""
-  Usage: magnify [-u] <url> [-f] <file> [-o] <filename>
+  Usage: magnify [-u] <url> [-f] <file> [-r] <rate> [-o] <filename>
   -h: Help
   -u --url: URL
   -f --file: Input file containing URLs
