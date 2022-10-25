@@ -1,47 +1,64 @@
 import sys
+import time
 import getopt
 import requests
 
 argumentList = sys.argv[1:]
-
-outputfile = ''
+rate = -1
+outputResult = []
 
 def loadFile(file):
-  with open(file) as f:
-    lines = [line.rstrip('\n') for line in f]
-    return lines
+  try:
+    with open(file) as f:
+      lines = [line.rstrip('\n') for line in f]
+      return lines
+  except:
+    print("Error: the file "+ file + " does not exist.")
 
-def handleResult(results):
-  for result in results:
-    print(result)
+def convertResult(result):
+  return str(result) + '\n'
 
+def writeFile(file):
+  try:
+    f = open(file,"w")
+    f.writelines(list(map(convertResult, outputResult)))
+    f.close()
+    print("Results saved: " + file)
+  except:
+    print("Error: unable to save results in "+ file)
+    
 def helpMenu():
   print("""
   Usage: magnify [-u] <url> [-f] <file> [-o] <filename>
   -h: Help
   -u --url: URL
-  -f --file: Input file containing URLs 
-  -o --output: Output filename
+  -f --file: Input file containing URLs
+  -r --rate: Rate limit in seconds
+  -o --output: Output file name/path
   """)
 
 def curlUrl(url):
   keywords = loadFile('keywords.txt')
-  results = [url]
+  result = [url]
   r = requests.get(url)
-  results.append(r.status_code)
+  result.append(r.status_code)
   for word in keywords:
     if word in str(r.content):
-      results.append(word)
-  return results
+      result.append(word)
+  return result
 
 def multipleCurl(urls):
   for url in urls:
-    print(curlUrl(url))
-
+    result = curlUrl(url)
+    print(result)
+    outputResult.append(result)
+    if(rate != -1):
+        time.sleep(rate)
+    
 try:
-  opts, args = getopt.getopt(argumentList,"f:h:u:o:",["file=", "url=","output="])
+  opts, args = getopt.getopt(argumentList,"f:h:r:u:o:",["file=", "rate=", "url=","output="])
 
-  for opt, arg in opts:
+  for opt, arg in reversed(opts):
     if opt == '-h':
       helpMenu()
       sys.exit()
@@ -51,8 +68,10 @@ try:
       urls = loadFile(arg)
       multipleCurl(urls)
     elif opt in ("-o", "--output"):
-      print(arg)
-      outputfile = arg
+      writeFile(arg)
+    elif opt in ("-r", "--rate"):
+      rate = int(arg)
+
 except getopt.GetoptError:
   helpMenu()
   sys.exit(2)
