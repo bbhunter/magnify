@@ -39,11 +39,14 @@ def helpMenu():
 def curlUrl(url):
   keywords = loadFile('keywords.txt')
   result = [url]
-  r = requests.get(url, verify=False)
-  result.append(r.status_code)
-  for word in keywords:
-    if word in str(r.content):
-      result.append(word)
+  try:
+    r = requests.get(url, verify=False)
+    result.append(r.status_code)
+    for word in keywords:
+      if word in str(r.content):
+        result.append(word)
+  except:
+    result.append('ERR')
   return result
 
 def multipleCurl(urls,rate):
