@@ -18,7 +18,7 @@ def loadFile(file):
     print("Error: the file "+ file + " does not exist.")
 
 def convertResult(result):
-  return str(result) + '\n'
+  return str(result).replace("'", "") + '\n'
 
 def writeFile(file):
   try:

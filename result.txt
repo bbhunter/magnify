@@ -1,3 +1,3 @@
-['https://krisp.ai/_,Mjo.tZzAKyQ9Zw.js.pagespeed.jm.T9OFohDzM-.js', 404]
-['https://www.monash.edu/__data/assets/file/0009/1689084/jquery.ver1.12.4.js', 200, 'key', 'pass', 'password', 'token', 'user', 'username']
-['https://www.monash.edu/__data/assets/file/0009/1689093/modernizr.custom.all.ver2.5.2.min.js', 200, 'email', 'pass']
+[https://krisp.ai/_,Mjo.tZzAKyQ9Zw.js.pagespeed.jm.T9OFohDzM-.js, 404]
+[https://www.monash.edu/__data/assets/file/0009/1689084/jquery.ver1.12.4.js, 200, key, pass, password, token, user, username]
+[https://www.monash.edu/__data/assets/file/0009/1689093/modernizr.custom.all.ver2.5.2.min.js, 200, email, pass]
