@@ -2,7 +2,10 @@ import sys
 import time
 import getopt
 import requests
+import urllib3
 
+# INIT
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 argumentList = sys.argv[1:]
 outputResult = []
 
