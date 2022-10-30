@@ -1,4 +1,5 @@
 import sys
+import re
 import time
 import getopt
 import requests
@@ -39,16 +40,28 @@ def helpMenu():
   -o --output: Output file name/path
   """)
 
+def checkRegex(content):
+  matches = []
+  patterns = loadFile('regex.txt')
+  for pattern in patterns:
+    p = '{}'.format(pattern)
+    r = re.findall(p, bytes.decode(content))
+    matches.extend(r)
+  return matches
+  
 def curlUrl(url):
   keywords = loadFile('keywords.txt')
   result = [url]
   try:
     r = requests.get(url, verify=False)
     result.append(r.status_code)
+    rgx = checkRegex(r.content)
+    result.extend(rgx)
     for word in keywords:
       if word in str(r.content):
         result.append(word)
-  except:
+  except Exception as e:
+    print(e)
     result.append('ERR')
   return result
 
@@ -67,7 +80,7 @@ try:
     rate = int([item for item in opts if ("--rate" or "-r") in item][0][1])
   except:
     rate = -1
-  
+
   for opt, arg in opts:
     if opt == '-h':
       helpMenu()
