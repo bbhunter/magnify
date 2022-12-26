@@ -20,3 +20,19 @@ git clone https://github.com/heydc7/magnify.git
 cd magnify/
 python3 main.py -u https://google.com
 ```
+
+## Example
+```
+waybackurls target.com | tee Desktop/waybacks.txt
+```
+```
+cd magnify
+python3 main.py -f ~/Desktop/waybacks.txt -o ~/Desktop/magnify.txt
+```
+
+## Result
+```
+(0%) ['https://target.com/?ch=10489', 200, 'AIza', 'appspot', 'auth', 'config', 'firebase', 'internal', 'key', 'login', 'pass', 'password', 'prod', 'user']
+```
+
+## Read Full Tutorial : [Click here]()
