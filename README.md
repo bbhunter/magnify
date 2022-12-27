@@ -35,4 +35,4 @@ python3 main.py -f ~/Desktop/waybacks.txt -o ~/Desktop/magnify.txt
 (0%) ['https://target.com/?ch=10489', 200, 'AIza', 'appspot', 'auth', 'config', 'firebase', 'internal', 'key', 'login', 'pass', 'password', 'prod', 'user']
 ```
 
-## Read Full Tutorial : [Click here]()
+## Read Full Tutorial : [Click here](https://dc.hashnode.dev/magnify-a-recon-tool-to-extract-sensitive-info)
